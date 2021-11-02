@@ -4,7 +4,7 @@ pipeline {
         version_prefix = "1.0.0"
         version_number = VersionNumber([versionNumberString: '-${BUILD_YEAR}${BUILD_MONTH,XX}${BUILD_DAY,XX}${BUILDS_TODAY_Z,XX}', versionPrefix: "${version_prefix}"])
         found_tag = "false"
-        tag_name = "v${version_prefix}"
+        tag_value = "v${version_prefix}"
     }
     stages {
         stage('Echo environment') {
@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Look for tag') {
             when {
-                tag "${tag_name}"
+                tag "${tag_value}"
             }
             steps {
                 script {
@@ -24,7 +24,7 @@ pipeline {
         }
         stage('Echo found_tag') {
             steps {
-                echo "Found tag ${tag_name} is ${found_tag}"
+                echo "Found tag ${tag_value} is ${found_tag}"
             }
         }
     }
