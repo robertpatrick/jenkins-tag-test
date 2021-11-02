@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Look for tag') {
             when {
-                tag ${tag_name}
+                tag "${tag_name}"
             }
             steps {
                 script {
