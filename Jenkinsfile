@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Look for tag') {
             when {
-                tag pattern: 'v\\d+[.]\\d+[.]\\d+', comparator: "REGEXP"
+                tag pattern: 'v\d+[.]\d+[.]\d+', comparator: "REGEXP"
             }
             steps {
                 script {
