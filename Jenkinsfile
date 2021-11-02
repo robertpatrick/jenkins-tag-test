@@ -3,8 +3,7 @@ pipeline {
     environment {
         version_prefix = "1.0.0"
         version_number = VersionNumber([versionNumberString: '-${BUILD_YEAR}${BUILD_MONTH,XX}${BUILD_DAY,XX}${BUILDS_TODAY_Z,XX}', versionPrefix: "${version_prefix}"])
-        found_tag = "false"
-        tag_value = "v${version_prefix}"
+        is_release = "false"
     }
     stages {
         stage('Echo environment') {
@@ -12,19 +11,19 @@ pipeline {
                 sh 'env|sort'
             }
         }
-        stage('Look for tag') {
+        stage('Look for release') {
             when {
-                tag pattern: "${tag_value}", comparator: "EQUALS"
+                changelog '.*^\\[release\\].+$'
             }
             steps {
                 script {
-                    found_tag = "true"
+                    is_release = "true"
                 }
             }
         }
-        stage('Echo found_tag') {
+        stage('Echo is_release') {
             steps {
-                echo "Found tag ${tag_value} is ${found_tag}"
+                echo "Found release marker is ${is_release}"
             }
         }
     }
