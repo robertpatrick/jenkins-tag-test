@@ -20,12 +20,11 @@ pipeline {
                 script {
                     found_tag = "true"
                 }
-                echo "Found tag ${tag_name}"
             }
         }
         stage('Echo found_tag') {
             steps {
-                echo 'Found tag ${tag_name} is ${found_tag}'
+                echo 'Found tag "${tag_name}" is "${found_tag}"'
             }
         }
     }
