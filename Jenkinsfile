@@ -1,10 +1,11 @@
 pipeline {
     agent any
     environment {
-        version_prefix = "1.0.4"
+        version_prefix = "1.0.5"
         is_release = "false"
         found_tag = "false"
         github_url = "https://github.com/robertpatrick/jenkins-tag-test.git"
+        github_creds = "fa369a2b-8c50-43ea-8956-71764cbcbe3d"
         branch = sh(returnStdout: true, script: 'echo $GIT_BRANCH | sed --expression "s:origin/::"')
     }
     stages {
@@ -15,12 +16,12 @@ pipeline {
         }
         stage('Checkout') {
             steps {
-                git url: "${github_url}", branch: "${branch}"
+                git url: "${github_url}", credentialId: "${github_creds}", branch: "${branch}"
             }
         }
         stage('Look for tag') {
             when {
-                tag pattern: "v1.0.4", comparator: "EQUALS"
+                tag pattern: "v1.0.5", comparator: "EQUALS"
             }
             steps {
                 script {
