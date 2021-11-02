@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Look for tag') {
             when {
-                tag "v1.0.0"
+                tag pattern: "v\d+[.]\d+[.]\d+" comparator: "REGEXP"
             }
             steps {
                 script {
