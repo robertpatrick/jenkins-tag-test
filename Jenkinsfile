@@ -1,7 +1,7 @@
 pipeline {
     agent { label 'ol8' }
     environment {
-        version_prefix = "1.0.0"
+        version_prefix = "1.0.1"
         version_number = VersionNumber([versionNumberString: '-${BUILD_YEAR}${BUILD_MONTH,XX}${BUILD_DAY,XX}${BUILDS_TODAY_Z,XX}', versionPrefix: "${version_prefix}"])
         is_release = "false"
         found_tag = "false"
@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Look for tag') {
             when {
-                tag "v1.0.0"
+                tag "v1.0.1"
             }
             steps {
                 script {
