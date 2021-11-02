@@ -1,12 +1,13 @@
 pipeline {
     agent any
     environment {
-        version_prefix = "1.0.7"
+        version_prefix = "1.0.8"
         is_release = "false"
         found_tag = "false"
         github_url = "https://github.com/robertpatrick/jenkins-tag-test.git"
         github_creds = "fa369a2b-8c50-43ea-8956-71764cbcbe3d"
         branch = sh(returnStdout: true, script: 'echo $GIT_BRANCH | sed --expression "s:origin/::"')
+        TAG_NAME = sh(returnStdout: true, script: 'git describe --abbrev=0 --tags').trim()
     }
     stages {
         stage('Echo environment') {
@@ -19,23 +20,23 @@ pipeline {
                 git url: "${github_url}", credentialsId: "${github_creds}", branch: "${branch}"
             }
         }
-        stage('Check for release tag') {
-            environment {
-                latest_tag = sh(returnStdout: true, script: 'git describe --abbrev=0 --tags').trim()
-                release_tag = "v${version_prefix}"
-            }
-            steps {
-                script {
-                    if (latest_tag.equals(release_tag)) {
-                        TAG_NAME=release_tag
-                    }
-                }
-                echo "TAG_NAME = ${TAG_NAME}"
-            }
-        }
+//         stage('Check for release tag') {
+//             environment {
+//                 latest_tag = sh(returnStdout: true, script: 'git describe --abbrev=0 --tags').trim()
+//                 release_tag = "v${version_prefix}"
+//             }
+//             steps {
+//                 script {
+//                     if (latest_tag.equals(release_tag)) {
+//                         TAG_NAME=release_tag
+//                     }
+//                 }
+//                 echo "TAG_NAME = ${TAG_NAME}"
+//             }
+//         }
         stage('Look for tag') {
             when {
-                tag pattern: "v1.0.7", comparator: "EQUALS"
+                tag pattern: "v1.0.8", comparator: "EQUALS"
             }
             steps {
                 script {
