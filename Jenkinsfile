@@ -1,8 +1,7 @@
 pipeline {
     agent any
     environment {
-        version_prefix = "1.0.2"
-        version_number = VersionNumber([versionNumberString: '-${BUILD_YEAR}${BUILD_MONTH,XX}${BUILD_DAY,XX}${BUILDS_TODAY_Z,XX}', versionPrefix: "${version_prefix}"])
+        version_prefix = "1.0.3"
         is_release = "false"
         found_tag = "false"
         github_url = "https://github.com/robertpatrick/jenkins-tag-test.git"
@@ -21,7 +20,7 @@ pipeline {
         }
         stage('Look for tag') {
             when {
-                tag "v1.0.2"
+                tag "v1.0.3"
             }
             steps {
                 script {
