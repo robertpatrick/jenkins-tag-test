@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Look for tag') {
             when {
-                tag pattern: 'v*', comparator: "REGEXP"
+                tag pattern: "${tag_value}", comparator: "EQUALS"
             }
             steps {
                 script {
