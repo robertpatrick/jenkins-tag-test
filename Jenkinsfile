@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Look for tag') {
             when {
-                tag "1.0.0"
+                tag "v1.0.0"
             }
             steps {
                 script {
