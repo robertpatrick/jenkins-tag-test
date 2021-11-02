@@ -1,4 +1,5 @@
 pipeline {
+    agent { label 'ol8' }
     environment {
         version_prefix = "1.0.0"
         version_number = VersionNumber([versionNumberString: '-${BUILD_YEAR}${BUILD_MONTH,XX}${BUILD_DAY,XX}${BUILDS_TODAY_Z,XX}', versionPrefix: "${version_prefix}"])
